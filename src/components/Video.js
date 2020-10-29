@@ -7,7 +7,8 @@ class Video extends Component{
 
 
     render(){
-
+        const {file} = this.props
+        debugger
         return <video id={"video"}>
             </video>
     }
