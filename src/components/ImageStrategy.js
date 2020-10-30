@@ -16,7 +16,7 @@ class ImageStrategy extends Component{
     }
 
     componentWillUnmount() {
-        // this.canvas.clear();
+        this.canvas.clear()
         delete this.canvas
     }
 

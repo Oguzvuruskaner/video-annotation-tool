@@ -6,7 +6,9 @@ import {compose} from "redux";
 class VideoController extends Component{
 
     render() {
-        return null
+        return <div className={"video-controller"}>
+
+        </div>
     }
 }
 

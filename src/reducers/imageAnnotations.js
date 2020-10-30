@@ -1,7 +1,9 @@
 import {CLOSE_FILE,ADD_ANNOTATION,UPDATE_ANNOTATION,DELETE_ANNOTATION} from "../actions";
 
 
-export default (state = {},{type,payload}) => {
+export default (state = {
+    counter:1
+},{type,payload}) => {
 
     const obj = {}
     const {id,xmin,ymin,xmax,ymax,color} = payload || {}
@@ -10,7 +12,7 @@ export default (state = {},{type,payload}) => {
         case CLOSE_FILE:
             return obj
         case ADD_ANNOTATION:
-            const annotationId = new Date().getTime()
+            const annotationId = state.counter++
             obj[annotationId] = payload
             return Object.assign({},state,obj)
 

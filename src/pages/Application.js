@@ -1,6 +1,6 @@
 import React,{Component} from "react"
 import BorderboxView from "../components/BoundingBoxView"
-import VideoController from "./VideoController"
+import VideoController from "../components/VideoController"
 import FileBarrier from "../components/FileBarrier";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
