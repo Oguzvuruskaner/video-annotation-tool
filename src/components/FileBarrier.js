@@ -17,10 +17,14 @@ class FileBarrier extends Component{
     }
 
     render() {
-        const {children} = this.props
-        return <>
-            {children}
-            </>
+        const {children,file} = this.props
+
+        if(file == null)
+            return null
+        else
+            return <>
+                {children}
+                </>
     }
 }
 

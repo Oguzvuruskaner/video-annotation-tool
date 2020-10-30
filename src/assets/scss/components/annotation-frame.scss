@@ -1,0 +1,12 @@
+.annotation-frame{
+  position:relative;
+  height:85vh;
+  width:85vw;
+
+  border:5px solid black;
+
+  &_canvas{
+    background:transparent;
+    z-index: 10;
+  }
+}

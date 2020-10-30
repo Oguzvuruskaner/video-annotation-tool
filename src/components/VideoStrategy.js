@@ -3,17 +3,21 @@ import {connect} from "react-redux"
 import {withRouter} from "react-router";
 import {compose} from "redux";
 
-class Video extends Component{
+class VideoStrategy extends Component{
 
     constructor(props){
         super(props)
 
     }
 
-    render(){
-        const {file} = this.props
+    componentDidMount() {
+        const {ref} = this.props
+        console.log(ref)
+    }
 
-        return <video src={file} muted id={"video"}>
+    render(){
+        const {src,ref} = this.props
+        return <video ref={ref} autoPlay={false} src={src} muted id={"video"}>
             </video>
     }
 
@@ -30,5 +34,5 @@ const mapStateToProps = ({file}) => {
 export default compose(
     withRouter,
     connect(mapStateToProps)
-)(Video)
+)(VideoStrategy)
 

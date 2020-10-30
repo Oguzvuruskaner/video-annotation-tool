@@ -3,14 +3,17 @@ import {connect} from "react-redux"
 import {withRouter} from "react-router";
 import {compose} from "redux";
 
-class BorderboxView extends Component{
+class BoundingBoxView extends Component{
 
     render() {
-        return null
+        return <div className={"border-"}>
+
+        </div>
+
     }
 }
 
 export default compose(
     withRouter,
     connect()
-)(BorderboxView)
+)(BoundingBoxView)

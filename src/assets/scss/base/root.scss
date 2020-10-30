@@ -1,6 +1,25 @@
+
 * {
   box-sizing:border-box;
   margin:0;
+
+}
+
+div {
+  height:100%;
+  width:100%;
+}
+
+img,video {
+  height:100%;
+  width:100%;
+  object-fit: contain;
+}
+
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
   height:100%;
   width:100%;
 }
@@ -8,5 +27,5 @@
 #root{
   min-height:100vh;
   min-width:100vw;
+  display:flex;
 }
-

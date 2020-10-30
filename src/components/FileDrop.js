@@ -13,7 +13,12 @@ class FileDrop extends Component{
 
         const {uploadFile} = this.props
 
-        return <Dropzone onDrop={(file) => uploadFile(file)}>
+        return <Dropzone
+            onDrop={(file) => uploadFile(file)}
+            maxFiles={1}
+            multiple={false}
+            accept="image/*,video/*"
+        >
             {({getRootProps, getInputProps}) => (
                 <div {...getRootProps()}>
                     <input {...getInputProps()} />
@@ -28,6 +33,8 @@ class FileDrop extends Component{
 const mapDispatchToProps = (dispatch,{history}) => {
     return {
         uploadFile : (file) => {
+            const objectURL = URL.createObjectURL(file[0])
+            file = {content:objectURL,type:file[0].type}
             dispatch({
                 type:UPLOAD_FILE,
                 payload:file
