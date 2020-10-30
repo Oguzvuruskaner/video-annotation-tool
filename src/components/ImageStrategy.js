@@ -24,7 +24,7 @@ class ImageStrategy extends Component{
         const {src} = this.props
         return <div className={"annotation-frame annotation-frame--image"}>
             <img src={src} alt={"failed"}/>
-            <canvas id={"annotation-frame_canvas annotation-frame_canvas--image"}/>
+            <canvas id={"c"} className={"annotation-frame__canvas annotation-frame_canvas--image"}/>
         </div>
 
     }

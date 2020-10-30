@@ -20,7 +20,7 @@ class FileDrop extends Component{
             accept="image/*,video/*"
         >
             {({getRootProps, getInputProps}) => (
-                <div {...getRootProps()}>
+                <div className={"fill"} {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>Drag 'n' drop some files here, or click to select files</p>
                 </div>

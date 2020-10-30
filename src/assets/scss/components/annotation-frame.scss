@@ -1,12 +1,21 @@
 .annotation-frame{
   position:relative;
-  height:85vh;
-  width:85vw;
-
   border:5px solid black;
+  overflow:hidden;
+  height:100%;
+  max-width:92%;
 
-  &_canvas{
+
+  &__canvas{
+    position:absolute;
+    min-width:100%;
+    min-height:100%;
+    top:0;
+    left:0;
     background:transparent;
     z-index: 10;
   }
+
+
+
 }

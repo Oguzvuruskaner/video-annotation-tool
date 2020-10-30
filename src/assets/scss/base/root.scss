@@ -5,16 +5,16 @@
 
 }
 
-div {
-  height:100%;
-  width:100%;
-}
 
 img,video {
   height:100%;
   width:100%;
-  object-fit: contain;
+  object-fit: none;
 }
+
+//body {
+//  overflow:hidden;
+//}
 
 canvas{
   position:absolute;
@@ -25,6 +25,11 @@ canvas{
 }
 
 #root{
+
+  &::-webkit-scrollbar{
+    display:none;
+  }
+
   min-height:100vh;
   min-width:100vw;
   display:flex;

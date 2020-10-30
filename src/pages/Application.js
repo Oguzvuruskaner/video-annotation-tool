@@ -17,8 +17,8 @@ class Application extends Component{
         const {file} = this.props
 
         return <FileBarrier>
-            <div className="application-page">
-                <div>
+            <div className="application">
+                <div className="application__upper-section">
                     <AnnotationFrame src={file}/>
                     <BorderboxView/>
                 </div>

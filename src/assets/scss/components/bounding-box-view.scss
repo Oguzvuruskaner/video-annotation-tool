@@ -1,6 +1,8 @@
 @import "../base/variables";
 .bounding-box-view {
   height:$navbar-height;
-  width:15vw;
-
+  width:15%;
+  display:flex;
+  justify-content: center;
+  padding-top:1.5rem;
 }
