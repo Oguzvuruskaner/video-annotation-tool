@@ -5,6 +5,6 @@ import Application from "../pages/Application";
 
 export default () => (<>
     <Route path="/" exact component={FileInput}/>
-    <Route path="app" component={Application}/>
+    <Route path="/app" component={Application}/>
 </>)
 

@@ -12,7 +12,6 @@ export function* directToApplication(){
 }
 
 
-
 export function* directToMain(){
     yield takeEvery(CLOSE_FILE, routeWorker("/"))
 }

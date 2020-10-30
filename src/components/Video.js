@@ -5,11 +5,16 @@ import {compose} from "redux";
 
 class Video extends Component{
 
+    constructor(props){
+        super(props)
+
+    }
 
     render(){
         const {file} = this.props
         debugger
-        return <video id={"video"}>
+
+        return <video muted id={"video"}>
             </video>
     }
 
