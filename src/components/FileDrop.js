@@ -25,17 +25,17 @@ class FileDrop extends Component{
 
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch,{history}) => {
     return {
-        uploadFile : (file) => dispatch({
-            type: UPLOAD_FILE,
-            payload: file
-        })
-
+        uploadFile : (file) => {
+            dispatch({
+                type:UPLOAD_FILE,
+                payload:file
+            })
+            history.push("/app")
+        }
     }
-
 }
-
 
 export default compose(
     withRouter,

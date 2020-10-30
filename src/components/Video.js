@@ -12,9 +12,8 @@ class Video extends Component{
 
     render(){
         const {file} = this.props
-        debugger
 
-        return <video muted id={"video"}>
+        return <video src={file} muted id={"video"}>
             </video>
     }
 
