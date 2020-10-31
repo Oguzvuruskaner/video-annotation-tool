@@ -1,6 +1,6 @@
 import {CLOSE_FILE,ADD_ANNOTATION,UPDATE_ANNOTATION,DELETE_ANNOTATION} from "../actions";
 import ColorScheme from "color-scheme"
-import {choice} from "../utils"
+import {choice,hexToRGB} from "../utils"
 
 
 export default (state = {
@@ -17,7 +17,7 @@ export default (state = {
         case ADD_ANNOTATION:
             const annotationId = state.counter++
             obj[annotationId] = payload
-            obj[annotationId]["color"] = choice(state.colors)
+            obj[annotationId]["color"] = hexToRGB(choice(state.colors))
             return Object.assign({},state,obj)
 
         case UPDATE_ANNOTATION:

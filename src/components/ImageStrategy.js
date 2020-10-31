@@ -1,36 +1,28 @@
 import React,{Component} from "react"
-import AnnotationViewer from "./AnnotationViewer"
 import {fabric} from "fabric"
 import {connect} from "react-redux"
+import {DELETE_CANVAS,CREATE_CANVAS,PLACE_CANVAS} from "../actions";
 
 
 class ImageStrategy extends Component{
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            canvas:null
-        }
-    }
-
     componentDidMount() {
-        //TODO: Think about how to pass constructed canvas to children of the ImageStrategy
-        // this.setState()
-        this.setState({
-            canvas:new fabric.Canvas("c")
-        })
+        const {createCanvas} = this.props
+        const canvas = new fabric.Canvas("c")
+        createCanvas(canvas)
 
     }
 
     componentWillUnmount() {
-        this.state.canvas.clear()
-        this.setState({canvas:null})
+        const {deleteCanvas} = this.props
+        deleteCanvas()
     }
 
     render() {
-        const {src} = this.props
+        const {src,placeCanvas} = this.props
+
         return <div className={"annotation-frame annotation-frame--image"}>
-            <img src={src} alt={"failed"}/>
+            <img src={src} onLoad={() => placeCanvas()} alt={"failed"}/>
             <canvas id={"c"} className={"annotation-frame__canvas annotation-frame_canvas--image"}/>
         </div>
 
@@ -38,5 +30,21 @@ class ImageStrategy extends Component{
 }
 
 const mapStateToProps = ({imageAnnotations}) => ({imageAnnotations})
+const mapDispatchToProps = (dispatch) => ({
+    deleteCanvas : () => dispatch({
+        type:DELETE_CANVAS,
+        payload:null
+    }),
+    createCanvas: (canvas) => dispatch({
+        type:CREATE_CANVAS,
+        payload:canvas
+    }),
+    placeCanvas : () => dispatch({
+        type:PLACE_CANVAS
+    })
+})
 
-export default connect(mapStateToProps)(ImageStrategy)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ImageStrategy)
