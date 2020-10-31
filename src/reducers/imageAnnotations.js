@@ -5,7 +5,6 @@ import {choice,hexToRGB} from "../utils"
 
 export default (state = {
     counter:1,
-    colors: new ColorScheme().from_hue(21).scheme("triade").variation("soft").colors()
 },{type,payload}) => {
 
     const obj = {}
@@ -17,7 +16,6 @@ export default (state = {
         case ADD_ANNOTATION:
             const annotationId = state.counter++
             obj[annotationId] = payload
-            obj[annotationId]["color"] = hexToRGB(choice(state.colors))
             return Object.assign({},state,obj)
 
         case UPDATE_ANNOTATION:

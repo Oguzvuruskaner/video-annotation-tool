@@ -5,12 +5,14 @@ import {getFrameSizeInfo} from "../utils";
 import canvas from "../reducers/canvas";
 
 const getCanvas = (state) => state.canvas
+const getImageAnnotations = (state) => state.imageAnnotations
 
 function* addAnnotation({_,payload}){
 
     const {xmin,xmax,ymin,ymax,color} = payload
 
     const canvas = yield select(getCanvas)
+    const imageAnnotations = yield select(getImageAnnotations)
 
     const rect = yield new fabric.Rect({
         x:0,
@@ -22,6 +24,8 @@ function* addAnnotation({_,payload}){
         stroke:color,
         hasRotatingPoint: false
     })
+    rect["id"] = imageAnnotations.counter
+
     yield canvas.add(rect)
 }
 
@@ -32,7 +36,6 @@ function *placeCanvas(){
     const {height,width,left,top} = yield getFrameSizeInfo(media)
 
     const canvas = yield select(getCanvas)
-    const tmpHeight = canvas.height
 
     canvas.setDimensions({height,width})
 
