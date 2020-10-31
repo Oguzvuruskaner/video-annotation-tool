@@ -1,10 +1,13 @@
 import React,{Component} from "react"
 import {connect} from "react-redux"
-import {withRouter} from "react-router";
-import {compose} from "redux";
-import {Fab} from "@material-ui/core";
+import {withRouter} from "react-router"
+import {compose} from "redux"
+import {Fab} from "@material-ui/core"
 import {Add} from "@material-ui/icons"
-import {ADD_ANNOTATION} from "../actions"
+import {ADD_ANNOTATION} from "../../actions"
+import SaveButton from "./SaveButton"
+
+
 
 class BoundingBoxView extends Component{
 
@@ -16,10 +19,12 @@ class BoundingBoxView extends Component{
             <Fab>
                 <Add onClick={createBoundingBox}/>
             </Fab>
+            <SaveButton/>
         </div>
 
     }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
 

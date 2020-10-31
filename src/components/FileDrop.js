@@ -33,11 +33,12 @@ class FileDrop extends Component{
 const mapDispatchToProps = (dispatch,{history}) => {
     return {
         uploadFile : (file) => {
-            const objectURL = URL.createObjectURL(file[0])
-            file = {content:objectURL,type:file[0].type}
+            file = file[0]
+            const objectURL = URL.createObjectURL(file)
+            const payload = {content:objectURL,type:file.type,name:file.name}
             dispatch({
                 type:UPLOAD_FILE,
-                payload:file
+                payload
             })
             history.push("/app")
         }

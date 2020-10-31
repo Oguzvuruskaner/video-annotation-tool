@@ -1,5 +1,5 @@
 import React,{Component} from "react"
-import BorderboxView from "../components/BoundingBoxView"
+import BoundingBoxView from "../components/BoundingBoxView"
 import VideoController from "../components/VideoController"
 import FileBarrier from "../components/FileBarrier";
 import {withRouter} from "react-router";
@@ -20,7 +20,7 @@ class Application extends Component{
             <div className="application">
                 <div className="application__upper-section">
                     <AnnotationFrame src={file}/>
-                    <BorderboxView/>
+                    <BoundingBoxView/>
                 </div>
                 <VideoController/>
             </div>
