@@ -1,26 +1,16 @@
 import React,{Component} from "react"
-import {withRouter} from "react-router";
+import {Redirect, withRouter} from "react-router";
 import {compose} from "redux";
 import {connect} from "react-redux";
 
 class FileBarrier extends Component{
 
-    constructor(props) {
-        super(props);
-    }
-
-    componentDidMount() {
-        const {history,file} = this.props
-        if (file == null)
-            history.push("/")
-
-    }
-
     render() {
         const {children,file} = this.props
 
-        if(file == null)
-            return null
+        if(file == null){
+            return <Redirect to="/"/>
+        }
         else
             return <>
                 {children}
