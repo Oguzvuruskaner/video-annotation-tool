@@ -5,14 +5,8 @@ import {compose} from "redux";
 
 class VideoStrategy extends Component{
 
-    constructor(props){
-        super(props)
-
-    }
-
     componentDidMount() {
         const {ref} = this.props
-        console.log(ref)
     }
 
     render(){

@@ -6,10 +6,15 @@ import {DELETE_CANVAS,CREATE_CANVAS,PLACE_CANVAS} from "../actions";
 
 class ImageStrategy extends Component{
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         const {createCanvas} = this.props
         const canvas = new fabric.Canvas("c")
         createCanvas(canvas)
+
 
     }
 

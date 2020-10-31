@@ -2,6 +2,7 @@ import {select,takeEvery} from "redux-saga/effects"
 import {fabric} from "fabric"
 import {ADD_ANNOTATION, CREATE_CANVAS, PLACE_CANVAS} from "../actions";
 import {getFrameSizeInfo} from "../utils";
+import canvas from "../reducers/canvas";
 
 const getCanvas = (state) => state.canvas
 
@@ -29,11 +30,16 @@ function *placeCanvas(){
     const media = yield document.querySelector("img") || document.querySelector("video")
 
     const {height,width,left,top} = yield getFrameSizeInfo(media)
-    console.log({height,width,left,top})
-    canvasContainer.style.width = `${width}px`
-    canvasContainer.style.height = `${height}px`
-    canvasContainer.style.top = `${top}px`
-    canvasContainer.style.left = `${left}px`
+
+    const canvas = yield select(getCanvas)
+    const tmpHeight = canvas.height
+
+    canvas.setDimensions({height,width})
+
+    canvasContainer.style.width = `${parseInt(width)}px`
+    canvasContainer.style.height = `${parseInt(height)}px`
+    canvasContainer.style.top = `${parseInt(top)}px`
+    canvasContainer.style.left = `${parseInt(left)}px`
 
 }
 
