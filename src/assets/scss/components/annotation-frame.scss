@@ -2,9 +2,10 @@
   position:relative;
   border:5px solid black;
   overflow:hidden;
+  width:100%;
   height:100%;
-  max-width:92%;
 
+  overlflow:hidden;
 
   &__canvas{
     position:absolute;

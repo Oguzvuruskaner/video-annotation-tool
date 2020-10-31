@@ -1,16 +1,25 @@
 import React,{Component} from "react"
 import {connect} from "react-redux"
-import BoundaryBox from "./BoundingBox";
+import BoundingBox from "./BoundingBox";
 
 class AnnotationViewer extends Component{
+
+    constructor(props) {
+        super(props);
+    }
+
 
     render() {
 
         const {imageAnnotations} = this.props
-
-        return (
-            null
-        );
+        console.log(imageAnnotations)
+        return <>
+            {
+                Object.entries(imageAnnotations).map((key,value) =>{
+                    return <BoundingBox key={key} id={key} {...value}/>
+                })
+            }
+        </>
     }
 }
 

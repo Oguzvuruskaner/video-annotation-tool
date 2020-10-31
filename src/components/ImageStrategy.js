@@ -8,16 +8,23 @@ class ImageStrategy extends Component{
 
     constructor(props) {
         super(props);
-        this.canvas = null
+        this.state = {
+            canvas:null
+        }
     }
 
     componentDidMount() {
-        this.canvas = new fabric.Canvas("c")
+        //TODO: Think about how to pass constructed canvas to children of the ImageStrategy
+        // this.setState()
+        this.setState({
+            canvas:new fabric.Canvas("c")
+        })
+
     }
 
     componentWillUnmount() {
-        this.canvas.clear()
-        delete this.canvas
+        this.state.canvas.clear()
+        this.setState({canvas:null})
     }
 
     render() {
