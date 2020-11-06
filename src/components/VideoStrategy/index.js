@@ -1,7 +1,7 @@
 import React,{Component} from "react"
 import {fabric} from "fabric"
 import {connect} from "react-redux"
-import {DELETE_CANVAS, CREATE_CANVAS, PLACE_CANVAS, UPDATE_ANNOTATION} from "../actions";
+import {DELETE_CANVAS, CREATE_CANVAS, PLACE_CANVAS,UPDATE_TIME, SET_DURATION,UPDATE_ANNOTATION} from "../../actions";
 import VideoController from "./VideoController";
 
 
@@ -12,12 +12,17 @@ class VideoStrategy extends Component{
         this.videoRef = React.createRef()
     }
 
-    videoFrameAction = (_,metadata) =>{
+    videoFrameAction = () => {
+        const { updateTime } = this.props
 
-        const {presentedFrames} = metadata
+        const inner =  (_,{mediaTime}) =>{
+            updateTime(mediaTime)
 
-        if(this.videoRef.current !== null)
-            this.videoRef.current.requestVideoFrameCallback(this.videoFrameAction)
+            if(this.videoRef.current !== null)
+                this.videoRef.current.requestVideoFrameCallback(inner)
+        }
+
+        return inner
     }
 
     componentDidMount() {
@@ -47,9 +52,15 @@ class VideoStrategy extends Component{
                 ymax:y + height
             })
         })
-        this.videoRef.current.requestVideoFrameCallback(this.videoFrameAction)
+        this.videoRef.current.requestVideoFrameCallback(this.videoFrameAction())
 
         createCanvas(canvas)
+    }
+
+    onLoadedData = () => {
+        const {placeCanvas,setDuration} = this.props
+        placeCanvas()
+        setDuration(this.videoRef.current.duration)
     }
 
     componentWillUnmount() {
@@ -59,10 +70,10 @@ class VideoStrategy extends Component{
     }
 
     render() {
-        const {src,placeCanvas} = this.props
+        const {src} = this.props
 
         return <div className={"annotation-frame annotation-frame--video"}>
-            <video muted={true} src={src} className={"media"} onLoadedData={placeCanvas} alt={"failed"} ref={this.videoRef}/>
+            <video muted={true} src={src} className={"media"} onLoadedData={this.onLoadedData} alt={"failed"} ref={this.videoRef}/>
             <canvas id={"c"} className={"annotation-frame__canvas annotation-frame_canvas--video"}/>
             <VideoController videoRef={this.videoRef}/>
         </div>
@@ -82,6 +93,14 @@ const mapDispatchToProps = (dispatch) => ({
     }),
     placeCanvas : () => dispatch({
         type:PLACE_CANVAS
+    }),
+    updateTime : (currentTime) => dispatch({
+        type:UPDATE_TIME,
+        payload:currentTime
+    }),
+    setDuration : (duration) => dispatch({
+        type:SET_DURATION,
+        payload:duration
     }),
     updateAnnotation : ({id,xmin,xmax,ymin,ymax}) => dispatch({
         type:UPDATE_ANNOTATION,

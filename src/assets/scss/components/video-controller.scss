@@ -1,17 +1,56 @@
 .video-controller{
   background-color:gray;
-  height:15%;
+  height:80px;
   display:flex;
-  flex:1;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
+
+  &__button{
+    background-color:transparent !important;
+    height: 12px !important;
+    width:12px !important;
+    margin-left:15px !important;
+    margin-right:15px !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  &__video-slider{
+    height:4%;
+    position:relative;
+    width:100%;
+    background-color: #d3d9de;
+    cursor:pointer;
+
+    &__inner-video{
+      display:none;
+    }
+    &__watch-progress{
+      height:100%;
+      position:absolute;
+      top:0;
+      left:0;
+      background-color:rgb(124,10,2);
+      z-index:100;
+    }
+
+    &__thumbnail{
+      height:100%;
+      background-color:#637483;
+      z-index:10;
+    }
+
+
+
+  }
 
   &__control-group{
     display:flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    flex:1;
+    height:96%;
+
+    &__button{
+      height:100%;
+      width:100%;
+    }
 
     &__button-container{
       display:flex;
