@@ -4,14 +4,6 @@ import {connect} from "react-redux"
 import {DELETE_CANVAS, CREATE_CANVAS, PLACE_CANVAS, UPDATE_ANNOTATION} from "../actions";
 import VideoController from "./VideoController";
 
-// {expectedDisplayTime: 116569.85000000002, height: 240, mediaTime: 1.34356, presentationTime: 116553.31500000002, presentedFrames: 41, …}
-// expectedDisplayTime: 116569.85000000002
-// height: 240
-// mediaTime: 1.34356
-// presentationTime: 116553.31500000002
-// presentedFrames: 41
-// processingDuration: 0.0005
-// width: 320
 
 class VideoStrategy extends Component{
 
