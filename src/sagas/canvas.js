@@ -1,8 +1,7 @@
 import {select,takeEvery} from "redux-saga/effects"
 import {fabric} from "fabric"
-import {ADD_ANNOTATION, CREATE_CANVAS, PLACE_CANVAS} from "../actions";
-import {getFrameSizeInfo} from "../utils";
-import canvas from "../reducers/canvas";
+import {ADD_ANNOTATION, PLACE_CANVAS} from "../actions";
+import {getFrameSizeInfo, getRenderedSize} from "../utils";
 
 const getCanvas = (state) => state.canvas
 const getImageAnnotations = (state) => state.imageAnnotations
@@ -29,21 +28,52 @@ function* addAnnotation({_,payload}){
     yield canvas.add(rect)
 }
 
-function *placeCanvas(){
+function *placeVideoCanvas(media){
+
     const canvasContainer = yield document.querySelector(".canvas-container")
-    const media = yield document.querySelector("img") || document.querySelector("video")
-
-    const {height,width,left,top} = yield getFrameSizeInfo(media)
-
     const canvas = yield select(getCanvas)
 
-    canvas.setDimensions({height,width})
+    const pos = window.getComputedStyle(media).getPropertyValue('object-position').split(' ');
+
+    const{height,width,top,left} = yield getRenderedSize(
+        true,
+        media.clientWidth,
+        media.clientHeight,
+        media.videoWidth,
+        media.videoHeight,
+        parseInt(pos[0]),
+        parseInt(pos[1])
+    )
+
+    yield canvas.setDimensions({height,width})
 
     canvasContainer.style.width = `${parseInt(width)}px`
     canvasContainer.style.height = `${parseInt(height)}px`
     canvasContainer.style.top = `${parseInt(top)}px`
     canvasContainer.style.left = `${parseInt(left)}px`
+}
 
+function *placeImageCanvas(media){
+
+    const canvas = yield select(getCanvas)
+    const canvasContainer = yield document.querySelector(".canvas-container")
+
+    const {height,width,left,top} = yield getFrameSizeInfo(media)
+
+
+    yield canvas.setDimensions({height,width})
+
+    canvasContainer.style.width = `${parseInt(width)}px`
+    canvasContainer.style.height = `${parseInt(height)}px`
+    canvasContainer.style.top = `${parseInt(top)}px`
+    canvasContainer.style.left = `${parseInt(left)}px`
+}
+
+function *placeCanvas(){
+    const media = yield document.querySelector(".media")
+
+    if(media.nodeName === "IMG") yield placeImageCanvas(media)
+    else yield placeVideoCanvas(media)
 }
 
 export default function* rootSaga(){

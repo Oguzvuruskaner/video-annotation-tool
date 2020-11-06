@@ -1,6 +1,4 @@
 import {CLOSE_FILE,ADD_ANNOTATION,UPDATE_ANNOTATION,DELETE_ANNOTATION} from "../actions";
-import ColorScheme from "color-scheme"
-import {choice,hexToRGB} from "../utils"
 
 
 export default (state = {
@@ -12,6 +10,7 @@ export default (state = {
 
     switch (type) {
         case CLOSE_FILE:
+            obj["counter"] = 1
             return obj
         case ADD_ANNOTATION:
             const annotationId = state.counter++

@@ -1,6 +1,5 @@
 import React,{Component} from "react"
 import BoundingBoxView from "../components/BoundingBoxView"
-import VideoController from "../components/VideoController"
 import FileBarrier from "../components/FileBarrier";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
@@ -18,21 +17,14 @@ class Application extends Component{
 
         return <FileBarrier>
             <div className="application">
-                <div className="application__upper-section">
-                    <AnnotationFrame src={file}/>
-                    <BoundingBoxView/>
-                </div>
-                <VideoController/>
+                <AnnotationFrame src={file}/>
+                <BoundingBoxView/>
             </div>
         </FileBarrier>
     }
 }
 
-const mapStateToProps = ({file},ownProps)  => {
-    return {
-        file
-    }
-}
+const mapStateToProps = ({file})  => ({file})
 
 export default compose(
     withRouter,

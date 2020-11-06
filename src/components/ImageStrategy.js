@@ -47,7 +47,7 @@ class ImageStrategy extends Component{
         const {src,placeCanvas} = this.props
 
         return <div className={"annotation-frame annotation-frame--image"}>
-            <img src={src} onLoad={() => placeCanvas()} alt={"failed"}/>
+            <img className={"media"} src={src} onLoad={placeCanvas} alt={"failed"}/>
             <canvas id={"c"} className={"annotation-frame__canvas annotation-frame_canvas--image"}/>
         </div>
 

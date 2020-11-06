@@ -9,9 +9,10 @@ export const hexToRGB = (hex) => {
     return `rgb(${parseInt(result[1],16)},${parseInt(result[2],16)},${parseInt(result[3],16)})`
 }
 
-function getRenderedSize(contains, cWidth, cHeight, width, height, posX,posY){
+export function getRenderedSize(contains, cWidth, cHeight, width, height, posX,posY){
     var oRatio = width / height,
-        cRatio = cWidth / cHeight;
+        cRatio = cWidth / cHeight
+
     return function() {
         if (contains ? (oRatio > cRatio) : (oRatio < cRatio)) {
             this.width = cWidth
@@ -29,13 +30,13 @@ function getRenderedSize(contains, cWidth, cHeight, width, height, posX,posY){
 }
 
 export function getFrameSizeInfo(img) {
-    var pos = window.getComputedStyle(img).getPropertyValue('object-position').split(' ');
+    const pos = window.getComputedStyle(img).getPropertyValue('object-position').split(' ');
 
     return getRenderedSize(true,
         img.width,
         img.height,
         img.naturalWidth,
-        img.naturalHeight,
+        img.naturalHeight ,
         parseInt(pos[0]),
         parseInt(pos[1])
     );

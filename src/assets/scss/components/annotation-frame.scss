@@ -1,11 +1,22 @@
 .annotation-frame{
   position:relative;
-  border:5px solid black;
   overflow:hidden;
   width:100%;
-  height:100%;
 
-  overlflow:hidden;
+  &--image{
+    height:100%;
+
+  }
+
+  &--video > video{
+    height:85%;
+
+  }
+
+
+  &--video > .video-controller{
+    height:15%;
+  }
 
   &__canvas{
     position:absolute;

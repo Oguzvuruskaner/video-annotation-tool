@@ -7,7 +7,6 @@ import {PLACE_CANVAS} from "../actions";
 class AnnotationFrame extends Component{
     constructor(props) {
         super(props);
-        this.videoRef = createRef()
         this.resizeListener = null
     }
 
@@ -29,7 +28,7 @@ class AnnotationFrame extends Component{
         if(type.includes("image"))
             return <ImageStrategy src={content}/>
         else
-            return <VideoStrategy src={content} ref={this.videoRef}/>
+            return <VideoStrategy src={content}/>
 
     }
 }

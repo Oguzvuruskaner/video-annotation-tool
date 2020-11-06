@@ -1,4 +1,21 @@
 .video-controller{
   background-color:gray;
   height:15%;
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  &__control-group{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    &__button-container{
+      display:flex;
+      justify-content: space-around;
+
+    }
+
+  }
+
 }
