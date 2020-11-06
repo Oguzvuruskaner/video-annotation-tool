@@ -79,7 +79,7 @@ class VideoSlider extends Component{
     }
 }
 
-const mapStateToProps = ({file:{content},videoControl:{currentTime,duration}}) => ({
+const mapStateToProps = ({file:{content},videoControl:{currentTime}}) => ({
     src:content,
     currentTime
 })
