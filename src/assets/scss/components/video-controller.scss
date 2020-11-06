@@ -1,6 +1,6 @@
 .video-controller{
   background-color:gray;
-  height:80px;
+  height:100px;
   display:flex;
   flex-direction: column;
 
@@ -15,14 +15,18 @@
   }
 
   &__video-slider{
-    height:4%;
+    height:5%;
     position:relative;
     width:100%;
     background-color: #d3d9de;
     cursor:pointer;
 
     &__inner-video{
-      display:none;
+      position:absolute;
+      width:320px;
+      height:240px;
+      z-index:1000;
+      top:-240px;
     }
     &__watch-progress{
       height:100%;
@@ -39,13 +43,11 @@
       z-index:10;
     }
 
-
-
   }
 
   &__control-group{
     display:flex;
-    height:96%;
+    height:95%;
 
     &__button{
       height:100%;
