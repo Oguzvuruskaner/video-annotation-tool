@@ -2,20 +2,28 @@
   background-color:gray;
   height:15%;
   display:flex;
-  justify-content: space-evenly;
+  flex:1;
+  justify-content: space-around;
   align-items: center;
 
   &__control-group{
     display:flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex:1;
 
     &__button-container{
       display:flex;
+      flex:1;
+      width:60%;
       justify-content: space-around;
 
     }
 
+    &__label{
+
+    }
   }
 
 }
