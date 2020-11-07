@@ -1,6 +1,6 @@
 import {select,takeEvery} from "redux-saga/effects"
 import {fabric} from "fabric"
-import {ADD_ANNOTATION, DELETE_ANNOTATION, PLACE_CANVAS, REMOVE_OBJECT, SELECT_OBJECT} from "../actions";
+import {CREATE_IMAGE_ANNOTATION, DELETE_IMAGE_ANNOTATION, PLACE_CANVAS, REMOVE_OBJECT, SELECT_OBJECT} from "../actions";
 import {getFrameSizeInfo, getRenderedSize} from "../utils";
 import {put} from "@redux-saga/core/effects";
 
@@ -93,14 +93,14 @@ function *removeObject({_,payload}){
     //TODO: ADD TO UNDO/REDO QUEUE FROM HERE
 
     yield put({
-        type:DELETE_ANNOTATION,
+        type:DELETE_IMAGE_ANNOTATION,
         payload:{id:payload}
     })
 
 }
 
 export default function* rootSaga(){
-    yield takeEvery(ADD_ANNOTATION,addAnnotation)
+    yield takeEvery(CREATE_IMAGE_ANNOTATION,addAnnotation)
     yield takeEvery(PLACE_CANVAS,placeCanvas)
     yield takeEvery(SELECT_OBJECT,selectObject)
     yield takeEvery(REMOVE_OBJECT,removeObject)

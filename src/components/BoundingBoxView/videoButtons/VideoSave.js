@@ -23,7 +23,7 @@ import { saveAs } from 'file-saver';
  */
 
 
-class SaveButton extends Component{
+class VideoSave extends Component{
 
     onClick(){
         const {imageAnnotations,file} = this.props
@@ -65,4 +65,4 @@ class SaveButton extends Component{
 
 const mapStateToProps = ({imageAnnotations,file}) => ({imageAnnotations,file})
 
-export default connect(mapStateToProps)(SaveButton)
+export default connect(mapStateToProps)(VideoSave)

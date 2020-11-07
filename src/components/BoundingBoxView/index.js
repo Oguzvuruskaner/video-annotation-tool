@@ -1,17 +1,13 @@
 import React,{Component} from "react"
-import SaveButton from "./SaveButton"
-import AddButton from "./AddButton";
-import CloseButton from "./CloseButton";
 import AnnotationViewer from "./AnnotationViewer";
+import ButtonFactory from "./ButtonFactory";
 
 class BoundingBoxView extends Component{
 
     render() {
 
         return <div className={"bounding-box-view"}>
-            <AddButton/>
-            <SaveButton/>
-            <CloseButton/>
+            <ButtonFactory/>
             <AnnotationViewer/>
         </div>
 

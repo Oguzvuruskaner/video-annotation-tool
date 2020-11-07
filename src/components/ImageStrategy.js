@@ -1,7 +1,7 @@
 import React,{Component} from "react"
 import {fabric} from "fabric"
 import {connect} from "react-redux"
-import {DELETE_CANVAS, CREATE_CANVAS, PLACE_CANVAS, UPDATE_ANNOTATION} from "../actions";
+import {DELETE_CANVAS, CREATE_CANVAS, PLACE_CANVAS, UPDATE_IMAGE_ANNOTATION} from "../actions";
 
 
 class ImageStrategy extends Component{
@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
         type:PLACE_CANVAS
     }),
     updateAnnotation : ({id,xmin,xmax,ymin,ymax}) => dispatch({
-        type:UPDATE_ANNOTATION,
+        type:UPDATE_IMAGE_ANNOTATION,
         payload:{
             id,
             xmin,

@@ -1,7 +1,14 @@
 import React,{Component} from "react"
 import {fabric} from "fabric"
 import {connect} from "react-redux"
-import {DELETE_CANVAS, CREATE_CANVAS, PLACE_CANVAS,UPDATE_TIME, SET_DURATION,UPDATE_ANNOTATION} from "../../actions";
+import {
+    DELETE_CANVAS,
+    CREATE_CANVAS,
+    PLACE_CANVAS,
+    UPDATE_TIME,
+    SET_DURATION,
+    MOVE_INTERPOLATION
+} from "../../actions";
 import VideoController from "./VideoController";
 
 
@@ -28,6 +35,7 @@ class VideoStrategy extends Component{
     componentDidMount() {
         const {createCanvas,updateAnnotation} = this.props
         const canvas = new fabric.Canvas("c")
+
 
         canvas.on("object:moved",({
                                       target:{id,width,height,x,y}
@@ -102,8 +110,8 @@ const mapDispatchToProps = (dispatch) => ({
         type:SET_DURATION,
         payload:duration
     }),
-    updateAnnotation : ({id,xmin,xmax,ymin,ymax}) => dispatch({
-        type:UPDATE_ANNOTATION,
+    moveAnnotation : ({id,xmin,xmax,ymin,ymax}) => dispatch({
+        type:MOVE_INTERPOLATION,
         payload:{
             id,
             xmin,

@@ -1,4 +1,4 @@
-import {PLAY, PAUSE, CLOSE_FILE, UPDATE_TIME, SET_DURATION, SET_TIME} from "../actions"
+import {PLAY, PAUSE, CLOSE_FILE, UPDATE_TIME, SET_DURATION, SET_TIME} from "../../actions"
 
 
 // State is defined as an object rather than a single boolean for allowing possible extensions

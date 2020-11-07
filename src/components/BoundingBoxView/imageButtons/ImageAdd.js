@@ -1,12 +1,11 @@
 import React, {Component} from "react"
 import {Fab} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
-import {ADD_ANNOTATION} from "../../actions";
+import {CREATE_IMAGE_ANNOTATION} from "../../../actions";
 import {connect} from "react-redux";
-import ColorPicker from "../../ColorPicker";
-import imageAnnotations from "../../reducers/imageAnnotations";
+import ColorPicker from "../../../ColorPicker";
 
-class AddButton extends Component{
+class ImageAdd extends Component{
 
     constructor(props) {
         super(props);
@@ -28,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createBoundingBox : (color,id) => {
             dispatch({
-                type:ADD_ANNOTATION,
+                type:CREATE_IMAGE_ANNOTATION,
                 payload:{
                     xmin:0,
                     ymin:0,
@@ -49,4 +48,4 @@ const mapStateToProps = ({imageAnnotations}) => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AddButton)
+export default connect(mapStateToProps,mapDispatchToProps)(ImageAdd)
