@@ -2,6 +2,7 @@ import React,{Component} from "react"
 import SaveButton from "./SaveButton"
 import AddButton from "./AddButton";
 import CloseButton from "./CloseButton";
+import AnnotationViewer from "./AnnotationViewer";
 
 class BoundingBoxView extends Component{
 
@@ -11,6 +12,7 @@ class BoundingBoxView extends Component{
             <AddButton/>
             <SaveButton/>
             <CloseButton/>
+            <AnnotationViewer/>
         </div>
 
     }

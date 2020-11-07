@@ -1,17 +1,16 @@
 import {select,takeEvery} from "redux-saga/effects"
 import {fabric} from "fabric"
-import {ADD_ANNOTATION, PLACE_CANVAS} from "../actions";
+import {ADD_ANNOTATION, DELETE_ANNOTATION, PLACE_CANVAS, REMOVE_OBJECT, SELECT_OBJECT} from "../actions";
 import {getFrameSizeInfo, getRenderedSize} from "../utils";
+import {put} from "@redux-saga/core/effects";
 
 const getCanvas = (state) => state.canvas
-const getImageAnnotations = (state) => state.imageAnnotations
 
-function* addAnnotation({_,payload}){
+function* addAnnotation({type,payload}){
 
-    const {xmin,xmax,ymin,ymax,color} = payload
+    const {xmin,xmax,ymin,ymax,color,id} = payload
 
     const canvas = yield select(getCanvas)
-    const imageAnnotations = yield select(getImageAnnotations)
 
     const rect = yield new fabric.Rect({
         x:0,
@@ -21,9 +20,9 @@ function* addAnnotation({_,payload}){
         fill:"",
         strokeWidth:4,
         stroke:color,
-        hasRotatingPoint: false
+        hasRotatingPoint: false,
+        id:parseInt(id)
     })
-    rect["id"] = imageAnnotations.counter
 
     yield canvas.add(rect)
 }
@@ -76,7 +75,33 @@ function *placeCanvas(){
     else yield placeVideoCanvas(media)
 }
 
+function *selectObject({_,payload}){
+    const canvas = yield select(getCanvas)
+    const object = canvas._objects.filter(({id}) => id === parseInt(payload))
+    canvas.setActiveObject(object)
+}
+
+function *removeObject({_,payload}){
+    const canvas = yield select(getCanvas)
+    const objects = canvas.getObjects()
+
+    const willBeRemoved = yield objects.filter(({id}) => id === parseInt(payload))[0]
+    canvas.remove(willBeRemoved)
+
+
+
+    //TODO: ADD TO UNDO/REDO QUEUE FROM HERE
+
+    yield put({
+        type:DELETE_ANNOTATION,
+        payload:{id:payload}
+    })
+
+}
+
 export default function* rootSaga(){
     yield takeEvery(ADD_ANNOTATION,addAnnotation)
     yield takeEvery(PLACE_CANVAS,placeCanvas)
+    yield takeEvery(SELECT_OBJECT,selectObject)
+    yield takeEvery(REMOVE_OBJECT,removeObject)
 }

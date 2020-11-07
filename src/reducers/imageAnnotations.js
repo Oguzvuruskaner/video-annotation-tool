@@ -21,9 +21,11 @@ export default (state = {
             obj[id] = {xmin,ymin,xmax,ymax,color}
             return Object.assign({},state,obj)
 
+
+
         case DELETE_ANNOTATION:
-            for (var i in state)
-                if(i != id) obj[i] = state[i]
+            for (let i in state)
+                if(i !== parseInt(id)) obj[i] = state[i]
             return obj
 
         default:
