@@ -3,7 +3,6 @@ import Routes from "./Routes"
 import Root from "./Root"
 
 
-
 export default () => {
     return <Root>
         <Routes/>
