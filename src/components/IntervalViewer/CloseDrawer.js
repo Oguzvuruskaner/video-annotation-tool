@@ -4,15 +4,15 @@ import {connect} from "react-redux"
 import {Fab} from "@material-ui/core";
 import {Close} from "@material-ui/icons"
 
-const CloseDrawer = ({close}) => {
+const CloseDrawer = ({dispatchCloseDrawer}) => {
 
-    return <Fab className="drawer__close" onClick={close}>
+    return <Fab className="drawer__close" onClick={dispatchCloseDrawer}>
         <Close/>
     </Fab>
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    close : () => dispatch(closeDrawer())
+    dispatchCloseDrawer : () => dispatch(closeDrawer())
 })
 
 export default connect(null,mapDispatchToProps)(CloseDrawer)

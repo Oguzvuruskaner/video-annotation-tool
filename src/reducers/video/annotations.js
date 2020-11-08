@@ -11,7 +11,7 @@ export default (state = {
     counter : 1
 }, {type,payload}) => {
 
-    let {annotationId,intervalId,time} = payload || {}
+    let {annotationId,intervalId} = payload || {}
     let obj = {}
     annotationId = parseInt(annotationId || 0)
     intervalId = parseInt(intervalId || 0)
@@ -39,8 +39,9 @@ export default (state = {
             return obj
 
         case CREATE_VIDEO_ANNOTATION:
-            annotationId = state.counter++
+            annotationId = state.counter
             obj[annotationId] = {}
+            obj["counter"] = state.counter+1
             obj[annotationId]["intervals"] = []
 
             return Object.assign({},state,obj)

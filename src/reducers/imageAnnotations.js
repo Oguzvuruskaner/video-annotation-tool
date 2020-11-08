@@ -13,7 +13,8 @@ export default (state = {
             obj["counter"] = 1
             return obj
         case CREATE_IMAGE_ANNOTATION:
-            const annotationId = state.counter++
+            const annotationId = state.counter
+            obj["counter"] = state.counter + 1
             obj[annotationId] = payload
             return Object.assign({},state,obj)
 

@@ -1,0 +1,9 @@
+.interpolation-viewer {
+  display:flex;
+  flex-direction: row;
+  width:90%;
+  &__element{
+    list-style: none;
+    margin-left:.5rem;
+  }
+}

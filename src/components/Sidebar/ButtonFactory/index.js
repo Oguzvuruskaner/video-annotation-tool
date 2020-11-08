@@ -1,25 +1,25 @@
 import React from "react"
 import {connect} from "react-redux"
 
-import ImageAdd from "./imageButtons/ImageAdd";
+import AddImageAnnotation from "./imageButtons/AddImageAnnotation";
 import ImageSave from "./imageButtons/ImageSave";
 import CloseButton from "./CloseButton";
 
-import VideoAdd from "./videoButtons/VideoAdd";
 import VideoSave from "./videoButtons/VideoSave";
+import AddVideoAnnotation from "./videoButtons/AddVideoAnnotation";
 
 const ButtonFactory = ({type}) => {
     if(type.includes("image"))
         return <>
-            <ImageSave/>
+            <AddImageAnnotation/>
             <CloseButton/>
-            <ImageAdd/>
+            <ImageSave/>
         </>
     else
         return <>
-            <VideoSave/>
+            <AddVideoAnnotation/>
             <CloseButton/>
-            <VideoAdd/>
+            <VideoSave/>
         </>
 }
 

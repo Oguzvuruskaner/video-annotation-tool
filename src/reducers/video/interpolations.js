@@ -27,7 +27,9 @@ export default (state = {counter:1},{type,payload}) => {
             return obj
 
         case CREATE_INTERPOLATION:
-            interpolationId = state.counter++
+            interpolationId = state.counter
+            obj["counter"] = state.counter+1
+
             obj[interpolationId] = {
                 intervalId,
                 xmin,

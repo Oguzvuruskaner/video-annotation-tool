@@ -23,7 +23,8 @@ export default (state = {counter:1},{type,payload}) => {
             return Object.assign({},state,obj)
 
         case CREATE_INTERVAL:
-            intervalId = state.counter++
+            intervalId = state.counter
+            obj["counter"] = state.counter + 1
             obj[intervalId] = {}
             obj[intervalId]["annotationId"] = annotationId
             obj[intervalId]["interpolations"] = []

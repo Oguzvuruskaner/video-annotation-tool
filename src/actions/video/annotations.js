@@ -45,10 +45,10 @@ export const deleteVideoAnnotation = (annotationId) => (dispatch,getState) => {
 
 }
 
-export const createVideoAnnotation = (currentTime,color) => (dispatch,getState) => {
+export const createVideoAnnotation = () => (dispatch,getState) => {
 
 
-    const {videoAnnotations,intervals,interpolations} = getState()
+    const {videoAnnotations,intervals,interpolations,color,videoControl:{currentTime}} = getState()
 
     const annotationId = videoAnnotations.counter
     const intervalId = intervals.counter
@@ -81,7 +81,7 @@ export const createVideoAnnotation = (currentTime,color) => (dispatch,getState) 
             xmax:100,
             ymin:0,
             ymax:100,
-            color,
+            color : color.getColor(),
             id:interpolationId
         }
     })
