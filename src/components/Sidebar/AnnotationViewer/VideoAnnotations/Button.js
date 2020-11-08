@@ -8,7 +8,7 @@ import {OPEN_DRAWER} from "../../../../actions/video/drawer";
 const Button = ({deleteAnnotation,openDrawer,id}) => {
 
     // On left click open annotation menu
-    return <Fab  onClick={openDrawer} onContextMenu={deleteAnnotation}>
+    return <Fab className={"annotation-viewer__element"}  onClick={openDrawer} onContextMenu={deleteAnnotation}>
         {id}
     </Fab>
 }

@@ -3,7 +3,12 @@
   margin-top:4rem;
   width:100%;
   border-top:1px solid rgba(gray,0.4);
+  align-items: center;
+  justify-content: center;
+
   &__interval{
-    margin-left:2rem;
+    display:flex;
+    flex-direction: row;
+    margin:2rem;
   }
 }

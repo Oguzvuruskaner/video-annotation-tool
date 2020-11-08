@@ -3,9 +3,9 @@ import {connect} from "react-redux"
 import {REMOVE_OBJECT, SELECT_OBJECT} from "../../../../actions";
 import {Fab} from "@material-ui/core"
 
-const Button = ({xmin,ymin,xmax,ymax,color,selectObject,removeObject,id,}) => {
+const Button = ({selectObject,removeObject,id,}) => {
 
-    return <Fab onClick={selectObject} onContextMenu={removeObject}>
+    return <Fab className="annotation-viewer__element" onClick={selectObject} onContextMenu={removeObject}>
         {id}
     </Fab>
 }

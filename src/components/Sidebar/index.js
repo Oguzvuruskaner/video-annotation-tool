@@ -6,7 +6,7 @@ class Sidebar extends Component{
 
     render() {
 
-        return <div className={"bounding-box-view"}>
+        return <div className={"sidebar"}>
             <ButtonFactory/>
             <AnnotationViewer/>
         </div>

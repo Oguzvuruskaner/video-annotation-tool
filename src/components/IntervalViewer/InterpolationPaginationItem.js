@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 
 const InterpolationPaginationItem = ({interpolation,defaultOnClick}) => {
-    return <button onClick={defaultOnClick}>
+    return <button  onClick={defaultOnClick}>
         {interpolation.interpolationId}
     </button>
 }

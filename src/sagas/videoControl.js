@@ -26,7 +26,7 @@ function* pause() {
     video.pause()
 }
 
-function *updateTime({_,payload}){
+function *setTime({_,payload}){
     const video = document.querySelector(".media")
     video.currentTime = payload
 }
@@ -36,6 +36,6 @@ export default function* rootSaga(){
     yield takeEvery(TIME_FORWARD,timeForward)
     yield takeEvery(TIME_BACKWARD,timeBackward)
     yield takeEvery(PLAY,play)
-    yield takeEvery(SET_TIME,updateTime)
+    yield takeEvery(SET_TIME,setTime)
     yield takeEvery(PAUSE,pause)
 }

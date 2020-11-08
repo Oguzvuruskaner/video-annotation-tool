@@ -2,4 +2,10 @@
   border-top: 1px solid gray;
   flex:1;
   width:90%;
+  align-items: center;
+  flex-direction: column;
+  display:flex;
+  &__item {
+    margin:0.5rem;
+  }
 }
