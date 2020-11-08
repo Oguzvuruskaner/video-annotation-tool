@@ -4,7 +4,7 @@ import {compose} from "redux";
 import {connect} from "react-redux"
 import {Fab} from "@material-ui/core";
 import {Close} from "@material-ui/icons";
-import {CLOSE_FILE} from "../../../actions";
+import {CLOSE_FILE} from "../../../../actions";
 
 class VideoClose extends Component{
 

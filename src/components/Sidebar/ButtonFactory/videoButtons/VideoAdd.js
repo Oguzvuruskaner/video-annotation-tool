@@ -1,10 +1,10 @@
 import React, {Component} from "react"
 import {Fab} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
-import {ADD_ANNOTATION, CREATE_VIDEO_ANNOTATION, createVideoAnnotation} from "../../../actions";
+import {ADD_ANNOTATION, CREATE_VIDEO_ANNOTATION, createVideoAnnotation} from "../../../../actions";
 import {connect} from "react-redux";
-import ColorPicker from "../../../ColorPicker";
-import imageAnnotations from "../../../reducers/imageAnnotations";
+import ColorPicker from "../../../../ColorPicker";
+import imageAnnotations from "../../../../reducers/imageAnnotations";
 
 class VideoAdd extends Component{
 

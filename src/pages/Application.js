@@ -1,5 +1,5 @@
 import React,{Component} from "react"
-import BoundingBoxView from "../components/BoundingBoxView"
+import Sidebar from "../components/Sidebar"
 import FileBarrier from "../components/FileBarrier";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
@@ -18,7 +18,7 @@ class Application extends Component{
         return <FileBarrier>
             <div className="application">
                 <AnnotationFrame src={file}/>
-                <BoundingBoxView/>
+                <Sidebar/>
             </div>
         </FileBarrier>
     }

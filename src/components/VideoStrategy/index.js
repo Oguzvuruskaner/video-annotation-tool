@@ -10,6 +10,7 @@ import {
     MOVE_INTERPOLATION
 } from "../../actions";
 import VideoController from "./VideoController";
+import IntervalViewer from "../IntervalViewer";
 
 
 class VideoStrategy extends Component{
@@ -84,6 +85,7 @@ class VideoStrategy extends Component{
             <video muted={true} src={src} className={"media"} onLoadedData={this.onLoadedData} alt={"failed"} ref={this.videoRef}/>
             <canvas id={"c"} className={"annotation-frame__canvas annotation-frame_canvas--video"}/>
             <VideoController videoRef={this.videoRef}/>
+            <IntervalViewer/>
         </div>
 
     }

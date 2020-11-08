@@ -1,0 +1,10 @@
+.drawer{
+
+  height:40vh;
+  position:relative;
+  &__close{
+    position:absolute !important;
+    top:1rem;
+    right:1rem;
+  }
+}

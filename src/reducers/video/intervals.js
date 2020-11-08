@@ -27,8 +27,8 @@ export default (state = {counter:1},{type,payload}) => {
             obj[intervalId] = {}
             obj[intervalId]["annotationId"] = annotationId
             obj[intervalId]["interpolations"] = []
-            obj[intervalId]["start"] = Infinity
-            obj[intervalId]["end"] = -Infinity
+            obj[intervalId]["start"] = time
+            obj[intervalId]["end"] = time
             return Object.assign({},state,obj)
 
         case DELETE_INTERVAL:

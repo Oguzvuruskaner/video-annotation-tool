@@ -2,7 +2,7 @@ import React,{Component} from "react"
 import AnnotationViewer from "./AnnotationViewer";
 import ButtonFactory from "./ButtonFactory";
 
-class BoundingBoxView extends Component{
+class Sidebar extends Component{
 
     render() {
 
@@ -15,4 +15,4 @@ class BoundingBoxView extends Component{
 }
 
 
-export default BoundingBoxView
+export default Sidebar

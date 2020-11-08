@@ -1,9 +1,9 @@
 import React, {Component} from "react"
 import {Fab} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
-import {CREATE_IMAGE_ANNOTATION} from "../../../actions";
+import {CREATE_IMAGE_ANNOTATION} from "../../../../actions";
 import {connect} from "react-redux";
-import ColorPicker from "../../../ColorPicker";
+import ColorPicker from "../../../../ColorPicker";
 
 class ImageAdd extends Component{
 
