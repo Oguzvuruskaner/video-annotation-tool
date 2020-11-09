@@ -1,8 +1,10 @@
 import {deleteVideoAnnotation} from "./annotations";
 import {bulkDeleteInterpolations, createInterpolation} from "./interpolations";
 
+
+export const SORT_INTERVAL = "sort_interval"
 export const CREATE_INTERVAL = "create_interval"
-export const DELETE_INTERVAL = "deleteC_interval"
+export const DELETE_INTERVAL = "delete_interval"
 
 export const createInterval = (annotationId) => (dispatch, getState) => {
 
@@ -19,10 +21,30 @@ export const createInterval = (annotationId) => (dispatch, getState) => {
     })
 
 
-    createInterpolation(intervalId)
+    dispatch(createInterpolation(intervalId))
 }
 
+export const sortInterval = (intervalId) => (dispatch,getState) => {
 
+    const {intervals,interpolations} = getState()
+
+    let start,end
+    let interpolationIdsInInterval = intervals[intervalId].interpolations
+
+    interpolationIdsInInterval = interpolationIdsInInterval.sort((a,b) => interpolations[a].time > interpolations[b].time)
+    start = interpolations[interpolationIdsInInterval[0]].time
+    end = interpolations[interpolationIdsInInterval[interpolationIdsInInterval.length-1]].time
+    dispatch({
+        type:SORT_INTERVAL,
+        payload:{
+            intervalId,
+            start,
+            end,
+            interpolationIds:interpolationIdsInInterval
+        }
+    })
+
+}
 
 
 export const deleteInterval = (intervalId) => (dispatch,getState) => {

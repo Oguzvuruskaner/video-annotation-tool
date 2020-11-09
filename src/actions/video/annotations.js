@@ -1,6 +1,5 @@
-import {SET_TIME, setCurrentTime} from "./control";
-import {CREATE_INTERPOLATION, createInterpolation, DELETE_INTERPOLATION, deleteInterpolation} from "./interpolations";
-import {CREATE_INTERVAL, createInterval, DELETE_INTERVAL, deleteInterval} from "./intervals";
+import {createInterpolation} from "./interpolations";
+import {createInterval, deleteInterval} from "./intervals";
 
 export const DELETE_VIDEO_ANNOTATION = "delete_video_annotation"
 export const CREATE_VIDEO_ANNOTATION = "create_video_annotation"
@@ -12,7 +11,7 @@ export const deleteVideoAnnotation = (annotationId) => (dispatch,getState) => {
 
     for(let intervalId of videoAnnotations[annotationId].intervals){
 
-        deleteInterval(intervalId)
+        dispatch(deleteInterval(intervalId))
     }
 
 }
@@ -34,7 +33,6 @@ export const createVideoAnnotation = () => (dispatch,getState) => {
     })
 
     dispatch(createInterval(annotationId))
-    dispatch(createInterpolation(intervalId))
 
 }
 

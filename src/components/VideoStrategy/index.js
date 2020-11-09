@@ -35,7 +35,7 @@ class VideoStrategy extends Component{
             dispatchScrollTime(e.wheelDelta)
         } )
 
-        canvas.on("object:moved",({ target:{id,width,height,left,top} }) => {
+        canvas.on("object:moving",({ target:{id,width,height,left,top} }) => {
             dispatchMoveInterpolation({
                 interpolationId:id,
                 xmin:left,

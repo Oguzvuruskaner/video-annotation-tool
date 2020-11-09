@@ -1,4 +1,4 @@
-import { deleteInterval} from "./intervals";
+import {deleteInterval, sortInterval} from "./intervals";
 
 export const CREATE_INTERPOLATION = "create_interpolation"
 export const DELETE_INTERPOLATION = "delete_interpolation"
@@ -33,14 +33,14 @@ export const deleteInterpolation = (interpolationId) => (dispatch, getState) => 
     if (intervals[intervalId].interpolations.length !== 1)
         return
 
-    deleteInterval(intervalId)
-
-
+    dispatch(deleteInterval(intervalId))
 }
 
 export const createInterpolation = (intervalId) => (dispatch,getState) => {
 
     const {interpolations,color,videoControl:{currentTime}} = getState()
+
+    //Conditional to here, check for closeness of interpolations.
 
     dispatch({
         type:CREATE_INTERPOLATION,
@@ -55,23 +55,36 @@ export const createInterpolation = (intervalId) => (dispatch,getState) => {
             color:color.getColor()
     }})
 
+
+    dispatch(sortInterval(intervalId))
 }
 
-export const moveInterpolation = ({interpolationId,xmin,xmax,ymin,ymax}) => ({
-    type:MOVE_INTERPOLATION,
-    payload:{
-        interpolationId,
-        xmin,
-        xmax,
-        ymin,
-        ymax
-    }
-})
+export const moveInterpolation = ({interpolationId,xmin,xmax,ymin,ymax}) => (dispatch,getState) => {
 
-export const changeTimeInterpolation = ({interpolationId,time}) => ({
-    type:CHANGE_TIME_INTERPOLATION,
-    payload:{
-        interpolationId,
-        time
+    dispatch({
+        type:MOVE_INTERPOLATION,
+        payload:{
+            interpolationId,
+            xmin,
+            xmax,
+            ymin,
+            ymax
+        }
+    })
+
+    const {interpolations} = getState()
+    dispatch(sortInterval(interpolations[interpolationId].intervalId))
+}
+
+export const changeTimeInterpolation = ({interpolationId,time}) => (dispatch,getState) => {
+    dispatch({
+        type:CHANGE_TIME_INTERPOLATION,
+        payload: {
+            interpolationId,
+            time
+        }
+    })
+
+    const {interpolations} = getState()
+    dispatch(sortInterval(interpolations[interpolationId].intervalId))
     }
-})

@@ -1,9 +1,9 @@
-import {CLOSE_FILE, CREATE_INTERPOLATION, CREATE_INTERVAL, DELETE_INTERVAL} from "../../actions";
+import {CLOSE_FILE, CREATE_INTERPOLATION, CREATE_INTERVAL, DELETE_INTERVAL, SORT_INTERVAL} from "../../actions";
 
 export default (state = {counter:1},{type,payload}) => {
 
     let obj = {}
-    let {annotationId,intervalId,interpolationId,time} = payload || {}
+    let {annotationId,intervalId,interpolationId,interpolationIds,time,start,end} = payload || {}
 
     annotationId = parseInt(annotationId || 0)
     intervalId = parseInt(intervalId || 0)
@@ -14,6 +14,14 @@ export default (state = {counter:1},{type,payload}) => {
 
         case CLOSE_FILE:
             return {counter:1}
+
+        case SORT_INTERVAL:
+            obj[intervalId] = state[intervalId]
+            obj[intervalId]["interpolations"] = interpolationIds
+            obj[intervalId]["start"] = start
+            obj[intervalId]["end"] = end
+
+            return Object.assign({},state,obj)
 
         case CREATE_INTERPOLATION:
 
