@@ -87,4 +87,4 @@ export const changeTimeInterpolation = ({interpolationId,time}) => (dispatch,get
 
     const {interpolations} = getState()
     dispatch(sortInterval(interpolations[interpolationId].intervalId))
-    }
+}

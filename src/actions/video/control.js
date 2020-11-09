@@ -27,8 +27,6 @@ export const updateStateTime = (time) => (dispatch,getState) => {
         payload:time
     })
 
-    const {activeObject} = getState()
-    if(activeObject !== null) dispatch(changeTimeInterpolation({interpolationId:activeObject,time}))
 
 }
 
@@ -38,4 +36,6 @@ export const scrollTime = (deltaWheel) => (dispatch,getState) => {
     const time = Math.min(Math.max(currentTime+deltaT,0),duration)
 
     dispatch(setCurrentTime(time))
+    if(activeObject !== null) dispatch(changeTimeInterpolation({interpolationId:activeObject,time}))
+
 }

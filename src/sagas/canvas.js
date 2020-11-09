@@ -6,7 +6,7 @@ import {put} from "@redux-saga/core/effects";
 
 const getCanvas = (state) => state.canvas
 
-function* addAnnotation({type,payload}){
+function* addAnnotation({_,payload}){
 
     const {xmin,xmax,ymin,ymax,color,id} = payload
 

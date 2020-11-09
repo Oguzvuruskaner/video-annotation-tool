@@ -1,11 +1,9 @@
-import {takeEvery, select, put} from "@redux-saga/core/effects";
+import {takeEvery, select} from "@redux-saga/core/effects";
 import {
-    SET_TIME,
     PLAY,
     PAUSE,
     clearActiveObject,
-    SET_CURRENT_TIME,
-    CREATE_INTERPOLATION, UPDATE_STATE_TIME, MOVE_INTERPOLATION
+    CREATE_INTERPOLATION, UPDATE_STATE_TIME
 } from "../actions";
 import {fabric} from "fabric";
 import {setActiveObject} from "../actions/video";
@@ -16,7 +14,7 @@ const getInterpolations = ({interpolations}) => interpolations
 const getPlaying = ({videoControl:{playing}}) => playing
 
 // Error while comparing.
-const DELTA_T = 0.02
+const DELTA_T = 0.05
 
 const willIntervalBeRendered =  (currentTime) => ({start,end}) => {
     return currentTime > start - DELTA_T && currentTime < end + DELTA_T
@@ -78,12 +76,10 @@ function *render({_,payload}){
 
     const interpolationList = yield select(getInterpolations)
 
-
     for(let interval of intervalsWillBeRendered){
         if(interval.interpolations.length === 1){
             //Single interpolation case
             const interpolationId = interval.interpolations[0]
-            console.log("Rendered Interpolations",interval.interpolations[0])
             yield renderShape(Object.assign({interpolationId},interpolationList[interpolationId]))
         }
         else{
