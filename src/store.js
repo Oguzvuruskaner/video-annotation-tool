@@ -10,7 +10,7 @@ const logger = createLogger()
 
 const store = createStore(
     reducers,
-    applyMiddleware(sagaMiddleware,reduxThunk,logger)
+    applyMiddleware(sagaMiddleware,reduxThunk,logger),
 )
 
 sagaMiddleware.run(sagas)

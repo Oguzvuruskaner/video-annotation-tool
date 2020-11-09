@@ -1,6 +1,6 @@
 import React,{Component} from "react"
 import {connect} from "react-redux"
-import {SET_TIME} from "../../../actions";
+import {setCurrentTime, setTime} from "../../../actions/video";
 
 class VideoSlider extends Component{
 
@@ -34,16 +34,14 @@ class VideoSlider extends Component{
             this.setState({mouseoverFill:0,viewX:0})
         })
 
-
-
     }
 
     onThumbnailClick = (event) => {
-        const {setTime} = this.props
+        const {dispatchSetCurrentTime} = this.props
         const {current} = this.sliderRef
         const {duration} = this.innerVideoRef.current
 
-        setTime(Math.min(duration,event.clientX/current.clientWidth*duration))
+        dispatchSetCurrentTime(Math.min(duration,event.clientX/current.clientWidth*duration))
     }
 
 
@@ -85,10 +83,7 @@ const mapStateToProps = ({file:{content},videoControl:{currentTime}}) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setTime : (currentTime) => dispatch({
-        type:SET_TIME,
-        payload:currentTime
-    })
+    dispatchSetCurrentTime : (currentTime) => dispatch(setCurrentTime(currentTime))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(VideoSlider)

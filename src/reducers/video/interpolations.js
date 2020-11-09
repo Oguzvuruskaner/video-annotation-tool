@@ -49,19 +49,18 @@ export default (state = {counter:1},{type,payload}) => {
 
         case MOVE_INTERPOLATION:
 
-            obj[interpolationId] = {
+            obj[interpolationId] = state[interpolationId]
+            obj[interpolationId] = Object.assign(obj[interpolationId],{
                 xmin,
                 xmax,
                 ymin,
                 ymax
-            }
+            })
             return Object.assign({},state,obj)
 
         case CHANGE_TIME_INTERPOLATION:
-            interpolationId = state.counter++
-            obj[interpolationId] = {
-                time
-            }
+            obj[interpolationId] = state[interpolationId]
+            obj[interpolationId] = Object.assign(obj[interpolationId],{time})
             return Object.assign({},state,obj)
 
         default :

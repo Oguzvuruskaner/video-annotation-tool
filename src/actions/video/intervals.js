@@ -1,8 +1,8 @@
 import {deleteVideoAnnotation} from "./annotations";
 import {bulkDeleteInterpolations, createInterpolation} from "./interpolations";
 
-export const CREATE_INTERVAL = "create_interpolation_interval"
-export const DELETE_INTERVAL = "delete_interpolation_interval"
+export const CREATE_INTERVAL = "create_interval"
+export const DELETE_INTERVAL = "deleteC_interval"
 
 export const createInterval = (annotationId) => (dispatch, getState) => {
 
@@ -20,7 +20,6 @@ export const createInterval = (annotationId) => (dispatch, getState) => {
 
 
     createInterpolation(intervalId)
-
 }
 
 

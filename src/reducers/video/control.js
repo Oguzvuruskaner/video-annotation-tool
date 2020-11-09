@@ -1,4 +1,4 @@
-import {PLAY, PAUSE, CLOSE_FILE, UPDATE_TIME, SET_DURATION, SET_TIME} from "../../actions"
+import {PLAY, PAUSE, CLOSE_FILE, UPDATE_STATE_TIME, SET_DURATION} from "../../actions"
 
 
 // State is defined as an object rather than a single boolean for allowing possible extensions
@@ -15,7 +15,7 @@ export default (state = {
             return Object.assign({},state,{playing:false,frameLength: null})
         case PLAY:
             return Object.assign({},state,{playing:true})
-        case UPDATE_TIME || SET_TIME:
+        case UPDATE_STATE_TIME:
             return Object.assign({},state,{currentTime:payload})
         case PAUSE:
             return Object.assign({},state,{playing:false})

@@ -2,16 +2,10 @@ import React,{Component} from "react"
 import {fabric} from "fabric"
 import {connect} from "react-redux"
 import {
-    DELETE_CANVAS,
-    CREATE_CANVAS,
-    PLACE_CANVAS,
-    UPDATE_TIME,
-    SET_DURATION,
-    moveInterpolation, deleteCanvas, placeCanvas, createCanvas, setDuration
+    moveInterpolation, deleteCanvas, placeCanvas, createCanvas, setDuration, setCurrentTime, scrollTime, updateStateTime
 } from "../../actions";
 import VideoController from "./VideoController";
 import IntervalViewer from "../IntervalViewer";
-import {updateTime} from "../../actions/video";
 
 
 class VideoStrategy extends Component{
@@ -22,11 +16,10 @@ class VideoStrategy extends Component{
     }
 
     videoFrameAction = () => {
-        const { dispatchUpdateTime } = this.props
+        const { dispatchUpdateStateTime } = this.props
 
         const inner =  (_,{mediaTime}) =>{
-            dispatchUpdateTime(mediaTime)
-
+            dispatchUpdateStateTime(mediaTime)
             if(this.videoRef.current !== null)
                 this.videoRef.current.requestVideoFrameCallback(inner)
         }
@@ -35,32 +28,30 @@ class VideoStrategy extends Component{
     }
 
     componentDidMount() {
-        const {dispatchCreateCanvas,dispatchMoveInterpolation} = this.props
+        const {dispatchCreateCanvas,dispatchMoveInterpolation,dispatchScrollTime} = this.props
         const canvas = new fabric.Canvas("c")
 
+        canvas.on("mouse:wheel", ({e}) => {
+            dispatchScrollTime(e.wheelDelta)
+        } )
 
-        canvas.on("object:moved",({
-                                      target:{id,width,height,x,y}
-                                  }) => {
-
+        canvas.on("object:moved",({ target:{id,width,height,left,top} }) => {
             dispatchMoveInterpolation({
-                id,
-                xmin:x,
-                xmax:x + width,
-                ymin:y,
-                ymax:y + height
+                interpolationId:id,
+                xmin:left,
+                xmax:left + width,
+                ymin:top,
+                ymax:top + height
             })
         })
 
-        canvas.on("object:scaled",({
-           target:{id,x,y,width,height}
-        }) => {
+        canvas.on("object:scaled",({target:{id,width,height,left,top} }) => {
             dispatchMoveInterpolation({
-                id,
-                xmin:x,
-                xmax:x + width,
-                ymin:y,
-                ymax:y + height
+                interpolationId:id,
+                xmin:left,
+                xmax:left + width,
+                ymin:top,
+                ymax:top + height
             })
         })
         this.videoRef.current.requestVideoFrameCallback(this.videoFrameAction())
@@ -98,8 +89,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchDeleteCanvas : () => dispatch(deleteCanvas()),
     dispatchCreateCanvas: (canvas) => dispatch(createCanvas(canvas)),
     dispatchPlaceCanvas : () => dispatch(placeCanvas()),
-    dispatchUpdateTime : (currentTime) => dispatch(updateTime(currentTime)),
+    dispatchUpdateStateTime : (currentTime) => dispatch(updateStateTime(currentTime)),
     dispatchSetDuration : (duration) => dispatch(setDuration(duration)),
+    dispatchScrollTime : (deltaWheel) => dispatch(scrollTime(deltaWheel)),
     dispatchMoveInterpolation : (updatedCoords) => dispatch(moveInterpolation(updatedCoords))
 })
 

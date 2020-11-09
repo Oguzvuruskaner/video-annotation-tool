@@ -13,8 +13,8 @@ function* addAnnotation({type,payload}){
     const canvas = yield select(getCanvas)
 
     const rect = yield new fabric.Rect({
-        x:0,
-        y:0,
+        left:0,
+        top:0,
         width:xmax-xmin,
         height:ymax-ymin,
         fill:"",

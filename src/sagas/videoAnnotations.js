@@ -1,41 +1,64 @@
-import {takeEvery,select} from "@redux-saga/core/effects";
-import {SET_TIME,PLAY,PAUSE} from "../actions";
+import {takeEvery, select, put} from "@redux-saga/core/effects";
+import {
+    SET_TIME,
+    PLAY,
+    PAUSE,
+    clearActiveObject,
+    SET_CURRENT_TIME,
+    CREATE_INTERPOLATION, UPDATE_STATE_TIME, MOVE_INTERPOLATION
+} from "../actions";
 import {fabric} from "fabric";
+import {setActiveObject} from "../actions/video";
+import store from "../store"
 
 const getIntervals = ({intervals}) => intervals
 const getInterpolations = ({interpolations}) => interpolations
 const getPlaying = ({videoControl:{playing}}) => playing
 
 // Error while comparing.
-const DELTA_T = 0.001
+const DELTA_T = 0.02
 
 const willIntervalBeRendered =  (currentTime) => ({start,end}) => {
     return currentTime > start - DELTA_T && currentTime < end + DELTA_T
 }
 
-const getCanvas = (state) => state.canvas
+const getCanvas = ({canvas}) => canvas
 
-function *renderShape({xmin,xmax,ymin,ymax,id,color}) {
+function *renderShapeFromState({_,payload})  {
+    yield renderShape(payload)
+}
+
+function *renderShape({xmin,xmax,ymin,ymax,interpolationId,color}) {
 
     const canvas = yield select(getCanvas)
     const playing = yield select(getPlaying)
 
     const rect = yield new fabric.Rect({
-        x:0,
-        y:0,
+        left:xmin,
+        top:ymin,
         width:xmax-xmin,
         height:ymax-ymin,
         fill:"",
         strokeWidth:4,
         stroke:color,
         hasRotatingPoint: false,
-        id:parseInt(id),
+        id:parseInt(interpolationId),
         selectable:!playing
     })
 
     rect.setControlsVisibility({mtr:false})
 
+    rect.on("mousedown:before",() =>{
+        store.dispatch(setActiveObject(interpolationId))
+    })
+
+    rect.on("mouseup",() => {
+        store.dispatch(clearActiveObject())
+    })
+
+
     yield canvas.add(rect)
+
 }
 
 
@@ -44,7 +67,6 @@ function *render({_,payload}){
 
     const canvas = yield select(getCanvas)
     canvas.clear()
-
 
     const currentTime = yield payload
     const compareFunc = willIntervalBeRendered(currentTime)
@@ -56,11 +78,13 @@ function *render({_,payload}){
 
     const interpolationList = yield select(getInterpolations)
 
+
     for(let interval of intervalsWillBeRendered){
         if(interval.interpolations.length === 1){
             //Single interpolation case
             const interpolationId = interval.interpolations[0]
-            yield renderShape(Object.assign({id:interpolationId},interpolationList[interpolationId]))
+            console.log("Rendered Interpolations",interval.interpolations[0])
+            yield renderShape(Object.assign({interpolationId},interpolationList[interpolationId]))
         }
         else{
             //Multiple interpolation case
@@ -79,7 +103,7 @@ function *render({_,payload}){
                     const rateOfChange = (currentTime-from.time) / (to.time-from.time)
 
                     yield renderShape(Object.assign(
-                        {id:from.id},
+                        {interpolationId:interval.interpolations[i]},
                         {
                             color:from.color,
                             xmin:from.xmin + rateOfChange * deltaXMin,
@@ -94,7 +118,7 @@ function *render({_,payload}){
             }
         }
     }
-
+    canvas.renderAll()
 
 }
 
@@ -120,5 +144,6 @@ function *unfreezeObjects(){
 export default function* rootSaga(){
     yield takeEvery(PLAY,freezeObject)
     yield takeEvery(PAUSE,unfreezeObjects)
-    yield takeEvery(SET_TIME,render)
+    yield takeEvery(UPDATE_STATE_TIME,render)
+    yield takeEvery(CREATE_INTERPOLATION,renderShapeFromState)
 }
