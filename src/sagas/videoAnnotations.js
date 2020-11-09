@@ -33,6 +33,8 @@ function *renderShape({xmin,xmax,ymin,ymax,id,color}) {
         selectable:!playing
     })
 
+    rect.setControlsVisibility({mtr:false})
+
     yield canvas.add(rect)
 }
 
@@ -47,7 +49,9 @@ function *render({_,payload}){
     const currentTime = yield payload
     const compareFunc = willIntervalBeRendered(currentTime)
 
-    const intervalList = yield select(getIntervals)
+    const intervals = yield select(getIntervals)
+    const intervalList = Object.values(intervals).filter(a => typeof a !== "number")
+
     const intervalsWillBeRendered = yield intervalList.filter(compareFunc)
 
     const interpolationList = yield select(getInterpolations)
@@ -68,7 +72,7 @@ function *render({_,payload}){
                     const {deltaXMin,deltaXMax,deltaYMin,deltaYMax} = {
                         deltaXMin : to.xmin - from.xmin,
                         deltaXMax : to.xmax - from.xmax,
-                        deltaYMin : to.ymin - from.ymib,
+                        deltaYMin : to.ymin - from.ymin,
                         deltaYMax : to.ymax - from.ymax,
                     }
 

@@ -7,10 +7,11 @@ import {
     PLACE_CANVAS,
     UPDATE_TIME,
     SET_DURATION,
-    MOVE_INTERPOLATION
+    moveInterpolation, deleteCanvas, placeCanvas, createCanvas, setDuration
 } from "../../actions";
 import VideoController from "./VideoController";
 import IntervalViewer from "../IntervalViewer";
+import {updateTime} from "../../actions/video";
 
 
 class VideoStrategy extends Component{
@@ -21,10 +22,10 @@ class VideoStrategy extends Component{
     }
 
     videoFrameAction = () => {
-        const { updateTime } = this.props
+        const { dispatchUpdateTime } = this.props
 
         const inner =  (_,{mediaTime}) =>{
-            updateTime(mediaTime)
+            dispatchUpdateTime(mediaTime)
 
             if(this.videoRef.current !== null)
                 this.videoRef.current.requestVideoFrameCallback(inner)
@@ -34,14 +35,15 @@ class VideoStrategy extends Component{
     }
 
     componentDidMount() {
-        const {createCanvas,updateAnnotation} = this.props
+        const {dispatchCreateCanvas,dispatchMoveInterpolation} = this.props
         const canvas = new fabric.Canvas("c")
 
 
         canvas.on("object:moved",({
                                       target:{id,width,height,x,y}
                                   }) => {
-            updateAnnotation({
+
+            dispatchMoveInterpolation({
                 id,
                 xmin:x,
                 xmax:x + width,
@@ -53,7 +55,7 @@ class VideoStrategy extends Component{
         canvas.on("object:scaled",({
            target:{id,x,y,width,height}
         }) => {
-            updateAnnotation({
+            dispatchMoveInterpolation({
                 id,
                 xmin:x,
                 xmax:x + width,
@@ -63,18 +65,18 @@ class VideoStrategy extends Component{
         })
         this.videoRef.current.requestVideoFrameCallback(this.videoFrameAction())
 
-        createCanvas(canvas)
+        dispatchCreateCanvas(canvas)
     }
 
     onLoadedData = () => {
-        const {placeCanvas,setDuration} = this.props
-        placeCanvas()
-        setDuration(this.videoRef.current.duration)
+        const {dispatchPlaceCanvas,dispatchSetDuration} = this.props
+        dispatchPlaceCanvas()
+        dispatchSetDuration(this.videoRef.current.duration)
     }
 
     componentWillUnmount() {
-        const {deleteCanvas} = this.props
-        deleteCanvas()
+        const {dispatchDeleteCanvas} = this.props
+        dispatchDeleteCanvas()
 
     }
 
@@ -93,35 +95,12 @@ class VideoStrategy extends Component{
 
 const mapStateToProps = ({imageAnnotations}) => ({imageAnnotations})
 const mapDispatchToProps = (dispatch) => ({
-    deleteCanvas : () => dispatch({
-        type:DELETE_CANVAS,
-        payload:null
-    }),
-    createCanvas: (canvas) => dispatch({
-        type:CREATE_CANVAS,
-        payload:canvas
-    }),
-    placeCanvas : () => dispatch({
-        type:PLACE_CANVAS
-    }),
-    updateTime : (currentTime) => dispatch({
-        type:UPDATE_TIME,
-        payload:currentTime
-    }),
-    setDuration : (duration) => dispatch({
-        type:SET_DURATION,
-        payload:duration
-    }),
-    moveAnnotation : ({id,xmin,xmax,ymin,ymax}) => dispatch({
-        type:MOVE_INTERPOLATION,
-        payload:{
-            id,
-            xmin,
-            xmax,
-            ymin,
-            ymax
-        }
-    })
+    dispatchDeleteCanvas : () => dispatch(deleteCanvas()),
+    dispatchCreateCanvas: (canvas) => dispatch(createCanvas(canvas)),
+    dispatchPlaceCanvas : () => dispatch(placeCanvas()),
+    dispatchUpdateTime : (currentTime) => dispatch(updateTime(currentTime)),
+    dispatchSetDuration : (duration) => dispatch(setDuration(duration)),
+    dispatchMoveInterpolation : (updatedCoords) => dispatch(moveInterpolation(updatedCoords))
 })
 
 export default connect(

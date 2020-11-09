@@ -1,24 +1,37 @@
-import {DELETE_INTERVAL,CREATE_INTERVAL, DELETE_VIDEO_ANNOTATION} from "./annotations";
+import {deleteVideoAnnotation} from "./annotations";
+import {bulkDeleteInterpolations, createInterpolation} from "./interpolations";
 
-export const createInterval = (annotationId) => (dispatch,getState) => {
+export const CREATE_INTERVAL = "create_interpolation_interval"
+export const DELETE_INTERVAL = "delete_interpolation_interval"
 
-    const {videoControl:{currentTime},intervals:{counter}} = getState()
+export const createInterval = (annotationId) => (dispatch, getState) => {
+
+    const {videoControl:{currentTime},intervals} = getState()
+    const intervalId = intervals.counter
 
     dispatch({
         type:CREATE_INTERVAL,
         payload:{
             annotationId,
             time:currentTime,
-            intervalId:counter
+            intervalId
         }
     })
+
+
+    createInterpolation(intervalId)
+
 }
+
+
+
 
 export const deleteInterval = (intervalId) => (dispatch,getState) => {
 
-    const {intervals} = getState()
-    const {videoAnnotation} = getState()
-    const {annotationId} = intervals[intervalId]
+    const {intervals,videoAnnotations} =  getState()
+    const {annotationId,interpolations} = intervals[intervalId]
+
+    dispatch(bulkDeleteInterpolations(interpolations))
 
     dispatch({
         type:DELETE_INTERVAL,
@@ -27,14 +40,9 @@ export const deleteInterval = (intervalId) => (dispatch,getState) => {
         }
     })
 
-    if(videoAnnotation[annotationId].intervals.length !== 1)
-        return
+    if(videoAnnotations[annotationId].intervals.length === 1)
+        dispatch(deleteVideoAnnotation(annotationId))
 
-    dispatch({
-        type:DELETE_VIDEO_ANNOTATION,
-        payload:{
-            annotationId
-        }
-    })
+
 
 }

@@ -1,13 +1,9 @@
+import {SET_TIME} from "./control";
+import {CREATE_INTERPOLATION, DELETE_INTERPOLATION} from "./interpolations";
+import {CREATE_INTERVAL, DELETE_INTERVAL} from "./intervals";
+
 export const DELETE_VIDEO_ANNOTATION = "delete_video_annotation"
 export const CREATE_VIDEO_ANNOTATION = "create_video_annotation"
-
-export const CREATE_INTERVAL = "create_interpolation_interval"
-export const DELETE_INTERVAL = "delete_interpolation_interval"
-
-export const CREATE_INTERPOLATION = "create_interpolation"
-export const DELETE_INTERPOLATION = "delete_interpolation"
-export const MOVE_INTERPOLATION = "move_interpolation"
-export const CHANGE_TIME_INTERPOLATION = "change_time_interpolation"
 
 
 export const deleteVideoAnnotation = (annotationId) => (dispatch,getState) => {
@@ -84,6 +80,13 @@ export const createVideoAnnotation = () => (dispatch,getState) => {
             color : color.getColor(),
             id:interpolationId
         }
+    })
+
+    const {videoControl} = getState()
+
+    dispatch({
+        type:SET_TIME,
+        payload:videoControl.currentTime
     })
 }
 

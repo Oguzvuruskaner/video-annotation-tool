@@ -1,6 +1,20 @@
-import {CREATE_INTERPOLATION, DELETE_INTERPOLATION, DELETE_INTERVAL, DELETE_VIDEO_ANNOTATION} from "./annotations";
+import {DELETE_VIDEO_ANNOTATION} from "./annotations";
+import {DELETE_INTERVAL, deleteInterval} from "./intervals";
 
-export const deleteInterpolation = (interpolationId) => (dispatch,getState) => {
+export const CREATE_INTERPOLATION = "create_interpolation"
+export const DELETE_INTERPOLATION = "delete_interpolation"
+export const MOVE_INTERPOLATION = "move_interpolation"
+export const CHANGE_TIME_INTERPOLATION = "change_time_interpolation"
+export const BULK_DELETE_INTERPOLATION = "bulk_delete_interpolation"
+
+
+export const bulkDeleteInterpolations = (interpolationIds) => ({
+    type:BULK_DELETE_INTERPOLATION,
+    payload:interpolationIds
+})
+
+
+export const deleteInterpolation = (interpolationId) => (dispatch, getState) => {
 
 
     const {interpolations} = getState()
@@ -9,7 +23,8 @@ export const deleteInterpolation = (interpolationId) => (dispatch,getState) => {
     dispatch({
         type:DELETE_INTERPOLATION,
         payload:{
-            interpolationId
+            interpolationId,
+            intervalId
         }
     })
 
@@ -19,25 +34,9 @@ export const deleteInterpolation = (interpolationId) => (dispatch,getState) => {
     if (intervals[intervalId].interpolations.length !== 1)
         return
 
-    const {videoAnnotation} = getState()
-    const {annotationId} = intervals[intervalId]
+    deleteInterval(intervalId)
 
-    dispatch({
-        type:DELETE_INTERVAL,
-        payload:{
-            intervalId
-        }
-    })
 
-    if(videoAnnotation[annotationId].intervals.length !== 1)
-        return
-
-    dispatch({
-        type:DELETE_VIDEO_ANNOTATION,
-        payload:{
-            annotationId
-        }
-    })
 }
 
 export const createInterpolation = (intervalId) => (dispatch,getState) => {
@@ -58,3 +57,14 @@ export const createInterpolation = (intervalId) => (dispatch,getState) => {
             color:color.getColor()
     }})
 }
+
+export const moveInterpolation = ({interpolationId,xmin,xmax,ymin,ymax}) => ({
+    type:MOVE_INTERPOLATION,
+    payload:{
+        interpolationId,
+        xmin,
+        xmax,
+        ymin,
+        ymax
+    }
+})

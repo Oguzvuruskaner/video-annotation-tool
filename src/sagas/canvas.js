@@ -23,6 +23,8 @@ function* addAnnotation({type,payload}){
         hasRotatingPoint: false,
         id:parseInt(id)
     })
+    rect.setControlsVisibility({mtr:false})
+
 
     yield canvas.add(rect)
 }
