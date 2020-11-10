@@ -1,4 +1,5 @@
 import {deleteInterval, sortInterval} from "./intervals";
+import {renderObjects, renderSingleObject} from "./control";
 
 export const CREATE_INTERPOLATION = "create_interpolation"
 export const DELETE_INTERPOLATION = "delete_interpolation"
@@ -7,10 +8,15 @@ export const CHANGE_TIME_INTERPOLATION = "change_time_interpolation"
 export const BULK_DELETE_INTERPOLATION = "bulk_delete_interpolation"
 
 
-export const bulkDeleteInterpolations = (interpolationIds) => ({
-    type:BULK_DELETE_INTERPOLATION,
-    payload:interpolationIds
-})
+export const bulkDeleteInterpolations = (interpolationIds) => (dispatch,getState) =>{
+
+    dispatch({
+        type:BULK_DELETE_INTERPOLATION,
+        payload:interpolationIds
+    })
+
+    dispatch(renderObjects())
+}
 
 
 export const deleteInterpolation = (interpolationId) => (dispatch, getState) => {
@@ -34,11 +40,13 @@ export const deleteInterpolation = (interpolationId) => (dispatch, getState) => 
         return
 
     dispatch(deleteInterval(intervalId))
+    dispatch(renderObjects())
+
 }
 
 export const createInterpolation = (intervalId) => (dispatch,getState) => {
 
-    const {interpolations,color,videoControl:{currentTime}} = getState()
+    const {interpolations,videoControl:{currentTime}} = getState()
 
     //Conditional to here, check for closeness of interpolations.
 
@@ -51,12 +59,18 @@ export const createInterpolation = (intervalId) => (dispatch,getState) => {
             xmax:100,
             ymin:0,
             ymax:100,
-            time:currentTime,
-            color:color.getColor()
+            time:currentTime
     }})
 
 
     dispatch(sortInterval(intervalId))
+    dispatch(renderSingleObject({interpolationId:interpolations.counter,
+        intervalId,
+        xmin:0,
+        xmax:100,
+        ymin:0,
+        ymax:100,
+        time:currentTime}))
 }
 
 export const moveInterpolation = ({interpolationId,xmin,xmax,ymin,ymax}) => (dispatch,getState) => {
@@ -87,4 +101,5 @@ export const changeTimeInterpolation = ({interpolationId,time}) => (dispatch,get
 
     const {interpolations} = getState()
     dispatch(sortInterval(interpolations[interpolationId].intervalId))
+
 }

@@ -8,6 +8,15 @@ export const TIME_BACKWARD = "time_backward"
 export const SET_DURATION = "set_duration"
 export const SET_CURRENT_TIME = "set_current_time"
 export const UPDATE_STATE_TIME =  "update_state_time"
+export const RENDER_ALL = "render_objects"
+export const RENDER_SINGLE_OBJECT = "render_single_object"
+
+export const renderSingleObject = (singleObject) => ({
+    type:RENDER_SINGLE_OBJECT,
+    payload:singleObject
+})
+
+export const renderObjects = ()=> ({type:RENDER_ALL})
 
 export const setDuration = (duration) => ({
     type:SET_DURATION,

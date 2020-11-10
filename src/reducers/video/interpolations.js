@@ -11,8 +11,8 @@ import {
 
 export default (state = {counter:1},{type,payload}) => {
 
-    let {interpolationId, intervalId,xmin,xmax,ymin,ymax,color,time} = payload || {}
-    interpolationId = parseInt(interpolationId || 0)
+    let {interpolationId, intervalId,xmin,xmax,ymin,ymax,time} = payload || {}
+    interpolationId = interpolationId || "0"
     let obj = {}
 
     switch(type){
@@ -42,7 +42,6 @@ export default (state = {counter:1},{type,payload}) => {
                 xmax,
                 ymin,
                 ymax,
-                color,
                 time
             }
             return Object.assign({},state,obj)

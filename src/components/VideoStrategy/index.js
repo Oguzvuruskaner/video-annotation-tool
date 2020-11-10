@@ -45,7 +45,9 @@ class VideoStrategy extends Component{
             })
         })
 
-        canvas.on("object:scaled",({target:{id,width,height,left,top} }) => {
+        canvas.on("object:scaled",({ target:{id,left,top,height,width} }) =>  {
+
+
             dispatchMoveInterpolation({
                 interpolationId:id,
                 xmin:left,

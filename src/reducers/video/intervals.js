@@ -3,7 +3,7 @@ import {CLOSE_FILE, CREATE_INTERPOLATION, CREATE_INTERVAL, DELETE_INTERVAL, SORT
 export default (state = {counter:1},{type,payload}) => {
 
     let obj = {}
-    let {annotationId,intervalId,interpolationId,interpolationIds,time,start,end} = payload || {}
+    let {annotationId,intervalId,interpolationId,interpolationIds,time,start,end,color} = payload || {}
 
     annotationId = parseInt(annotationId || 0)
     intervalId = parseInt(intervalId || 0)
@@ -38,11 +38,12 @@ export default (state = {counter:1},{type,payload}) => {
             obj[intervalId]["interpolations"] = []
             obj[intervalId]["start"] = time
             obj[intervalId]["end"] = time
+            obj[intervalId]["color"] = color
             return Object.assign({},state,obj)
 
         case DELETE_INTERVAL:
-            for(let i of Object.keys(state)){
-                if(parseInt(i) !== interpolationId) obj[i] = state[i]
+            for(let id of Object.keys(state)){
+                if(parseInt(id) !== intervalId) obj[id] = state[id]
             }
             return obj
 

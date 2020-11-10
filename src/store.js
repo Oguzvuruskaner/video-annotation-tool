@@ -6,7 +6,9 @@ import reducers from "./reducers"
 import sagas from "./sagas"
 
 const sagaMiddleware = createSagaMiddleware()
-const logger = createLogger()
+const logger = createLogger({
+    predicate:(getState, action) => !action.type.includes('move') && !action.type.includes('sort')
+})
 
 const store = createStore(
     reducers,

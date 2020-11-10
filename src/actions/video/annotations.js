@@ -10,10 +10,15 @@ export const deleteVideoAnnotation = (annotationId) => (dispatch,getState) => {
     const {videoAnnotations} = getState()
 
     for(let intervalId of videoAnnotations[annotationId].intervals){
-
         dispatch(deleteInterval(intervalId))
     }
 
+    dispatch({
+        type:DELETE_VIDEO_ANNOTATION,
+        payload:{
+            annotationId
+        }
+    })
 }
 
 export const createVideoAnnotation = () => (dispatch,getState) => {
@@ -37,10 +42,3 @@ export const createVideoAnnotation = () => (dispatch,getState) => {
 }
 
 
-/*
-
-State Hierarchy
-
-ANNOTATION > INTERVAL > INTERPOLATION
-
- */

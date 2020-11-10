@@ -33,8 +33,8 @@ export default (state = {
             return  Object.assign({},state,obj)
 
         case DELETE_VIDEO_ANNOTATION:
-            for(let i of Object.keys(state)){
-                if(annotationId !== parseInt(i)) obj[i] = state[i]
+            for(let id of Object.keys(state)){
+                if(annotationId !== parseInt(id)) obj[id] = state[id]
             }
             return obj
 

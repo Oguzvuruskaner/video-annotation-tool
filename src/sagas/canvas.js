@@ -21,6 +21,8 @@ function* addAnnotation({_,payload}){
         strokeWidth:4,
         stroke:color,
         hasRotatingPoint: false,
+        noScaleCache:false,
+        strokeUniform:true,
         id:parseInt(id)
     })
     rect.setControlsVisibility({mtr:false})
