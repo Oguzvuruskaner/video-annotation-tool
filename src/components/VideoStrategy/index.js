@@ -2,7 +2,7 @@ import React,{Component} from "react"
 import {fabric} from "fabric"
 import {connect} from "react-redux"
 import {
-    moveInterpolation, deleteCanvas, placeCanvas, createCanvas, setDuration, setCurrentTime, scrollTime, updateStateTime
+    moveInterpolation, deleteCanvas, placeCanvas, createCanvas, setDuration, scrollTime, updateStateTime
 } from "../../actions";
 import VideoController from "./VideoController";
 import IntervalViewer from "../IntervalViewer";
@@ -45,15 +45,14 @@ class VideoStrategy extends Component{
             })
         })
 
-        canvas.on("object:scaled",({ target:{id,left,top,height,width} }) =>  {
-
+        canvas.on("object:scaled",({ target:{id,left,top,height,width,scaleX,scaleY} }) =>  {
 
             dispatchMoveInterpolation({
                 interpolationId:id,
                 xmin:left,
-                xmax:left + width,
+                xmax:left + width*scaleX,
                 ymin:top,
-                ymax:top + height
+                ymax:top + height*scaleY
             })
         })
         this.videoRef.current.requestVideoFrameCallback(this.videoFrameAction())

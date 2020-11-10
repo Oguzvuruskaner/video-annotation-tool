@@ -84,6 +84,7 @@ function *render({_,payload}){
 
     for(let interval of intervalsWillBeRendered){
 
+
         if(interval.interpolations.length === 1){
             //Single interpolation case
             const interpolationId = interval.interpolations[0]
@@ -91,10 +92,14 @@ function *render({_,payload}){
         }
         else{
             //Multiple interpolation case
-            for(let i = 0; i < interval.interpolations.size - 1;i++){
+            for(let i = 0; i < interval.interpolations.length - 1;i++){
                 const from = interpolationList[interval.interpolations[i]]
                 const to = interpolationList[interval.interpolations[i+1]]
-                if(compareFunc({start:from.start,end:to.start})){
+
+                console.log("From:",from)
+                console.log("To:",to)
+
+                if(compareFunc({start:from.time,end:to.time})){
 
                     const {deltaXMin,deltaXMax,deltaYMin,deltaYMax} = {
                         deltaXMin : to.xmin - from.xmin,
@@ -103,17 +108,19 @@ function *render({_,payload}){
                         deltaYMax : to.ymax - from.ymax,
                     }
 
+
                     const rateOfChange = (currentTime-from.time) / (to.time-from.time)
 
-                    yield renderShape(
-                        {
-                            color:interval.color,
-                            interpolationId:interval.interpolations[i],
-                            xmin:from.xmin + rateOfChange * deltaXMin,
-                            xmax:from.xmax + rateOfChange * deltaXMax,
-                            ymin:from.ymin + rateOfChange * deltaYMin,
-                            ymax:from.ymax + rateOfChange * deltaYMax
-                        })
+                    const interpolatedShape = {
+                        color:interval.color,
+                        interpolationId:interval.interpolations[i],
+                        xmin:from.xmin + rateOfChange * deltaXMin,
+                        xmax:from.xmax + rateOfChange * deltaXMax,
+                        ymin:from.ymin + rateOfChange * deltaYMin,
+                        ymax:from.ymax + rateOfChange * deltaYMax
+                    }
+
+                    yield renderShape(interpolatedShape)
                     break
                 }
 
