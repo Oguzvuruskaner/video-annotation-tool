@@ -1,4 +1,4 @@
-import ColorPicker from "../ColorPicker";
+import ColorPicker from "../utils/ColorPicker";
 
 export default (
     state = new ColorPicker()

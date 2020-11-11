@@ -1,10 +1,10 @@
 import React from "react"
-import {Route} from "react-router-dom"
+import {Route, Switch} from "react-router-dom"
 import FileInput from "../pages/FileDrop"
 import Application from "../pages/Application";
 
-export default () => (<>
+export default () => (<Switch>
     <Route path="/" exact component={FileInput}/>
     <Route path="/app" component={Application}/>
-</>)
+</Switch>)
 

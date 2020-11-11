@@ -1,5 +1,5 @@
 import ColorScheme from "color-scheme";
-import {choice, hexToRGB} from "./utils";
+import {choice, hexToRGB} from "./index";
 
 class ColorPicker{
     constructor(colorList = null) {
